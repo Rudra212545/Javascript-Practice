@@ -1,6 +1,11 @@
 // for each loop, we will print the numbers 1 to 5
 const coding = ["JavaScript", "Python", "C++", "Java"];
 
+// const values = coding.forEach((item)=>{
+//     console.log(item);
+// })
+// log(values); // undefined, because forEach does not return anything
+
 //for each with Normal function
 // coding.forEach( function (val){
 //     console.log(val);
