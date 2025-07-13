@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Api Request</title>
+    <style>
+        .profile{
+            background-color: white;
+            height: 250px;
+            width: 250px;
+            border-radius: 50px;
+            padding: 25px;
+        }
+        #avatar{
+            /* background-color: black; */
+            border: 2px solid black;
+            height: 100px;
+            width: 100px;
+            border-radius: 500px;
+            margin-left: 70px;
+        }
+        #img{
+            height: 100px;
+            width: 100px;
+            border-radius: 500px;
+        }
+        #username,#fullname{
+            border: 2px solid black;
+            width: 150px;
+            height: 20px;
+            border-radius: 10px;
+            margin-left: 50px;
+            margin-top: 10px;
+            padding: 5px;
+        }
+        #info{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 10px;
+            margin-left: 50px;
+            
+        }
+        #followers,#following{
+            /* border: 2px solid black; */
+            /* border-radius: 25px; */
+            padding: 5px;
+            height: 20px;
+            width: 100px;
+        }
+        #btn{
+            margin-left: 70px;
+            padding: 5px;
+            height: 40px;
+            width: 100px;
+            background-color: lightgreen;
+            border: 2px solid lightgreen;
+            outline: none;
+            font-weight: bold;
+            border-radius: 20px;
+        }
+
+    </style>
+</head>
+<body style=" background-color: black;">
+    <div class="profile" id="profile">
+        <div id="avatar">
+            <img id="img" src="" alt="">
+        </div>
+        <div id="username"></div>
+        <div id="fullname"></div>
+        <div id="info">
+            <div id="followers"></div>
+            <div id="following"></div>
+        </div>
+        <button id="btn">Fetch</button>
+    </div>
+    
+</body>
+<script>
+    const btn = document.querySelector("#btn")
+    btn.addEventListener("click",()=>{
+        const requestUrl = "https://api.github.com/users/rudra212545"
+    const xhr = new XMLHttpRequest()
+        // console.log(xhr.readyState);
+    xhr.open('GET',requestUrl)
+        // console.log(xhr.readyState);
+    xhr.onreadystatechange = function (){
+        // console.log(xhr.readyState);
+        if(xhr.readyState === 4){
+            const data = JSON.parse(this.responseText)
+            // console.log(typeof data);
+            const followers = data.followers
+            const following = data.following
+            const username = data.login;
+            const fullname = data.name
+            const avatar = data.avatar_url
+
+            const img = document.querySelector("#img")
+            img.setAttribute("src",`${avatar}`)
+            const userName = document.querySelector("#username")
+            const fullName = document.querySelector("#fullname")
+            const follwingInfo = document.querySelector("#following")
+            const follwerInfo = document.querySelector("#followers")
+            userName.innerHTML = `${username}`
+            fullName.innerHTML = `${fullname}`
+            follwingInfo.innerHTML = `${following} Following`
+            follwerInfo.innerHTML = `${followers} Follower`
+        }
+    }
+    
+    xhr.send()
+    })
+
+</script>
+</html>
